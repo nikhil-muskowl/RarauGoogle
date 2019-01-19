@@ -33,6 +33,8 @@ export class ReportPage {
   public type;
   public error_description;
   public error_title;
+  public success_txt;
+  public report_submit;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -49,6 +51,7 @@ export class ReportPage {
     platform.registerBackButtonAction(() => {
       this.dismiss();
     });
+
     this.setText();
     this.createForm();
     this.type_id = this.navParams.get('type');
@@ -92,8 +95,11 @@ export class ReportPage {
     this.translate.get('error_description').subscribe((text: string) => {
       this.error_description = text;
     });
-    this.translate.get('submit').subscribe((text: string) => {
-      this.submit = text;
+    this.translate.get('success').subscribe((text: string) => {
+      this.success_txt = text;
+    });
+    this.translate.get('report_submit').subscribe((text: string) => {
+      this.report_submit = text;
     });
   }
 
@@ -144,6 +150,9 @@ export class ReportPage {
         );
       }
     }
+    else {
+      this.network.displayNetworkUpdate();
+    }
   }
 
   sendUserReport() {
@@ -179,6 +188,9 @@ export class ReportPage {
           }
         );
       }
+      else {
+        this.network.displayNetworkUpdate();
+      }
     }
   }
 
@@ -186,7 +198,6 @@ export class ReportPage {
     this.complain_by = this.LoginProvider.isLogin();
 
     if (this.reportForm.valid) {
-      this.loadingProvider.present();
 
       let params = {
         'user_id': this.complain_by,
@@ -198,6 +209,9 @@ export class ReportPage {
 
       console.log("params : " + JSON.stringify(params));
       if (this.network.checkStatus() == true) {
+
+        this.loadingProvider.present();
+
         this.storyService.apiStoryComplain(params).subscribe(
           response => {
             this.responseData = response;
@@ -208,6 +222,9 @@ export class ReportPage {
               console.log("responseData : " + JSON.stringify(this.responseData));
 
               this.reportForm.reset();
+              this.alertProvider.title = this.success_txt;
+              this.alertProvider.message = this.report_submit;
+              this.alertProvider.showAlert();
             }
           },
           err => console.error(err),
@@ -215,6 +232,9 @@ export class ReportPage {
             this.loadingProvider.dismiss();
           }
         );
+      }
+      else {
+        this.network.displayNetworkUpdate();
       }
     }
   }

@@ -134,6 +134,9 @@ export class ForgotPasswordPage {
         );
       }
     }
+    else {
+      this.network.displayNetworkUpdate();
+    }
   }
 
   backLogin() {

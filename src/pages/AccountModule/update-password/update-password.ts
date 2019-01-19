@@ -46,7 +46,6 @@ export class UpdatePasswordPage {
       password: ['', Validators.required],
       passconf: ['', Validators.required]
     });
-
   }
 
   goBack() {
@@ -72,10 +71,6 @@ export class UpdatePasswordPage {
     this.translate.get('error_confirm').subscribe((text: string) => {
       this.error_confirm = text;
     });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UpdatePasswordPage');
   }
 
   updatePass() {
@@ -108,6 +103,9 @@ export class UpdatePasswordPage {
           }
         );
       }
+    }
+    else {
+      this.network.displayNetworkUpdate();
     }
   }
 }

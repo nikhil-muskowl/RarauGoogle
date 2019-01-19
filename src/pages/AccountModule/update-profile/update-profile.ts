@@ -170,6 +170,9 @@ export class UpdateProfilePage {
           }
         );
       }
+      else {
+        this.network.displayNetworkUpdate();
+      }
     }
   }
 

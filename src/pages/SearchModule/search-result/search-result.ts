@@ -122,6 +122,9 @@ export class SearchResultPage {
         }
       );
     }
+    else {
+      this.network.displayNetworkUpdate();
+    }
   }
 
   goBack() {
@@ -140,11 +143,11 @@ export class SearchResultPage {
   }
 
   onScrollDown(infiniteScroll) {
+    this.pageStart += this.pageLength;
+
     if (this.pageStart <= this.recordsTotal) {
-      this.pageStart += this.pageLength;
       this.getSearch(this.search);
     }
-
     infiniteScroll.complete();
   }
 

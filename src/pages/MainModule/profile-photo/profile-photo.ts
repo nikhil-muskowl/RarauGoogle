@@ -150,6 +150,9 @@ export class ProfilePhotoPage {
           }
         );
       }
+      else {
+        this.network.displayNetworkUpdate();
+      }
     }
   }
 

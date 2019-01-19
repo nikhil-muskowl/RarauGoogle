@@ -76,9 +76,6 @@ export class SearchPage {
 
     this.setText();
     // this.createForm();
-    if (this.network.checkStatus() == true) {
-      this.getCategory();
-    }
 
     this.locationTracker.setLocation();
     this.latitude = this.locationTracker.getLatitude();
@@ -86,6 +83,13 @@ export class SearchPage {
     // this.latitude = '39.919981';
     // this.longitude = '116.414977';
 
+    if (this.network.checkStatus() == true) {
+      this.getCategory();
+    }
+    else {
+      this.network.displayNetworkUpdate();
+    }
+    
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];

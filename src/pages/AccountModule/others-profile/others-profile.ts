@@ -75,6 +75,9 @@ export class OthersProfilePage {
     if (this.network.checkStatus() == true) {
       this.getProfile(this.id);
     }
+    else {
+      this.network.displayNetworkUpdate();
+    }
   }
 
   setText() {
@@ -118,7 +121,6 @@ export class OthersProfilePage {
       this.login_to_continue = text;
     });
   }
-
 
   getProfile(id) {
     console.log('this.user_id : ' + this.user_id);
@@ -208,6 +210,9 @@ export class OthersProfilePage {
         );
         this.loadingProvider.dismiss();
       }
+      else {
+        this.network.displayNetworkUpdate();
+      }
     } else {
       this.alertProvider.title = this.forbidden;
       this.alertProvider.message = this.login_to_continue;
@@ -245,6 +250,9 @@ export class OthersProfilePage {
           }
         );
         this.loadingProvider.dismiss();
+      }
+      else {
+        this.network.displayNetworkUpdate();
       }
     } else {
       this.alertProvider.title = this.forbidden;

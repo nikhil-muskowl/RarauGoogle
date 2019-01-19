@@ -86,6 +86,8 @@ export class NotificationListPage {
           this.loadingProvider.dismiss();
         }
       );
+    } else {
+      this.network.displayNetworkUpdate();
     }
   }
 

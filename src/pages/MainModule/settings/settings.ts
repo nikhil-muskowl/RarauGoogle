@@ -65,6 +65,9 @@ export class SettingsPage {
     if (this.network.checkStatus() == true) {
       this.getLanguages();
     }
+    else {
+      this.network.displayNetworkUpdate();
+    }
   }
 
   setText() {

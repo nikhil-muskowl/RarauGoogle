@@ -40,6 +40,9 @@ export class EventModalPage {
     if (this.network.checkStatus() == true) {
       this.getEvents();
     }
+    else {
+      this.network.displayNetworkUpdate();
+    }
   }
 
   setText() {

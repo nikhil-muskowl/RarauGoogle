@@ -239,20 +239,18 @@ export class RegistrationPage {
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegistrationPage');
-  }
-
   save() {
-    if (this.network.checkStatus() == true) {
-      this.submitAttempt = true;
-      console.log(this.registerForm.valid);
 
-      console.log(this.imagePath);
-      if (this.registerForm.valid) {
+    this.submitAttempt = true;
+    console.log(this.registerForm.valid);
 
-        if (this.imagePath != undefined) {
-          if (this.registerForm.value.password == this.registerForm.value.passconf) {
+    console.log(this.imagePath);
+    if (this.registerForm.valid) {
+
+      if (this.imagePath != undefined) {
+        if (this.registerForm.value.password == this.registerForm.value.passconf) {
+
+          if (this.network.checkStatus() == true) {
             this.loadingProvider.present();
 
             this.formData = this.registerForm.valid;
@@ -326,16 +324,19 @@ export class RegistrationPage {
               );
           }
           else {
-            this.alertProvider.title = this.error;
-            this.alertProvider.message = this.pass_not_match;
-            this.alertProvider.showAlert();
+            this.network.displayNetworkUpdate();
           }
         }
         else {
           this.alertProvider.title = this.error;
-          this.alertProvider.message = this.upload_image;
+          this.alertProvider.message = this.pass_not_match;
           this.alertProvider.showAlert();
         }
+      }
+      else {
+        this.alertProvider.title = this.error;
+        this.alertProvider.message = this.upload_image;
+        this.alertProvider.showAlert();
       }
     }
   }
@@ -370,9 +371,7 @@ export class RegistrationPage {
       this.male_color = '#fff';
       this.gender_id = 0;
     }
-
     console.log('Gender Id : ' + this.gender_id);
-
   }
 
   public femaleimage = 'assets/icon/female_white.png';
@@ -390,8 +389,6 @@ export class RegistrationPage {
       this.female_color = '#fff';
       this.gender_id = 0;
     }
-
-
     console.log('Gender Id : ' + this.gender_id);
   }
 

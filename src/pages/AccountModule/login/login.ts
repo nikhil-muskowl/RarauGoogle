@@ -163,12 +163,12 @@ export class LoginPage {
   }
 
   save() {
-    if (this.network.checkStatus() == true) {
-      this.submitAttempt = true;
-      this.formData = this.loginForm.valid;
 
-      if (this.loginForm.valid) {
+    this.submitAttempt = true;
+    this.formData = this.loginForm.valid;
 
+    if (this.loginForm.valid) {
+      if (this.network.checkStatus() == true) {
         this.loadingProvider.present();
         this.loginProvider.apiLogin(this.loginForm.value).subscribe(
           response => {
@@ -214,6 +214,9 @@ export class LoginPage {
             this.loadingProvider.dismiss();
           }
         );
+      }
+      else {
+        this.network.displayNetworkUpdate();
       }
     }
   }
