@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <span class="logo">
+        <img src="assets/imgs/login/Group-2.png" class="fire-icon">{{rarau}}
+      </span>
+    </ion-title>
+
+    <ion-buttons end>
+      <button class="btn-transparent" (click)="openModal()">
+        <img src="assets/icon/search_home.png" width="40" height="40">
+      </button>
+      <button class="btn-transparent" (click)="openEvents()">
+        <img src="assets/icon/event.png" width="40" height="40">
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="home-slides" style="height: 20%;">
+    <ion-slides slidesPerView="3" #homeSlides>
+      <ion-slide *ngFor="let category of categories; let i = index;">
+        <div class="category-rank">
+          <ion-row>
+            <ion-col text-center>
+              <img class="s-image" src="{{category.image}}" width="3" height="3" />
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col (click)="gotoUsers(category.user_id)">
+              <img class="p-image" src="{{category.user_image}}" width="3" height="3">
+              <img class="star" src="assets/icon/Front-Icons/Vector-Smart-Object3.png" width="3" height="3">
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-slide>
+    </ion-slides>
+
+    <button type="submit" float-left color="light" class="swiper-button-prev swiper-button-black" (click)="homeSlidesPrev()">
+      <ion-icon ios="ios-arrow-dropleft-circle" md="md-arrow-dropleft-circle"></ion-icon>
+    </button>
+    <button type="submit" float-right color="light" class="swiper-button-next swiper-button-black" (click)="homeSlidesNext()">
+      <ion-icon ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle"></ion-icon>
+    </button>
+
+  </div>
+
+  <!-- <div #map id='map' style="height: 60% !important;">
+  </div>
+
+  <div *ngIf="showStories" class="top-stories">
+    <ion-buttons end class="back-white">
+      <button class="cross">
+        <ion-icon text-right name="close-circle" (click)="closeList()"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-list (click)="goToList()" no-lines>
+      <ion-item *ngFor="let record of stories; let i = index;">
+        <ion-avatar item-start>
+          <img src="{{record.user_image}}">
+        </ion-avatar>
+        <h2>{{record.user_name}}</h2>
+        <p>
+          <span *ngFor="let tag of record.tags; let j = index;">
+            <span *ngIf="record.tags.length-1 > j">{{tag}}, </span>
+            <span *ngIf="record.tags.length-1 == j">{{tag}}</span>
+          </span>
+        </p>
+        <ion-note item-end>{{record.categories}}</ion-note>
+      </ion-item>
+    </ion-list>
+
+  </div> -->
+
+  <map></map>
+
+  <div style="height: 20%;">
+    <ion-slides *ngIf="Advdata" autoplay="3000" loop="true" speed="500" (ionSlideDidChange)="slideChanged()">
+      <ion-slide *ngFor="let slide of Advdata">
+        <div>
+          <img class="adv-img" src="http://rarau.hk/{{slide.image}}" height="100" width="100">
+          <!-- <p>{{slide.title}}</p> -->
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</ion-content>

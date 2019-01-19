@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-buttons left>
+      <button ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>
+      {{upload}} {{receipt}}
+    </ion-title>
+    <ion-buttons right>
+
+      <span class="logo">
+        <img src="assets/imgs/login/Group-2.png" class="fire-icon">
+      </span>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="login-back" scroll="false">
+    <div class="row">
+      <div class="col">
+        <div text-center>
+          <h1>
+            <b>{{upload}}
+              <br>
+              <span style="text-decoration: underline;">{{receipt}}</span>
+            </b>
+          </h1>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div text-center>
+      <img class="circle-pic" src="{{receiptImage}}" width="150" height="150">
+    </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col border-line">
+        <div text-right>
+          <img style="margin-right: 15px" src="assets/icon/UploadPicture.png" width="100" height="100" (click)="openGallery()">
+        </div>
+      </div>
+      <!-- <div class="divider"></div> -->
+      <div class="col">
+        <div text-left>
+          <img style="margin-left: 15px" src="assets/icon/Camera.png" width="100" height="100" (click)="openCamera()">
+        </div>
+      </div>
+    </div>
+    <br>
+    <div text-center>
+      <ion-label class="white-col">{{show_rec_public}}</ion-label>
+      <ion-checkbox [(ngModel)]="receipt_private" (ionChange)="updateReceipt()"></ion-checkbox>
+    </div>
+    <br>
+    <div padding text-center>
+      <ion-row>
+        <ion-col col-6>
+          <button class="submit-btn" ion-button (click)="goBack()">{{skip_txt}}</button>
+        </ion-col>
+        <ion-col col-6>
+          <button class="submit-btn" ion-button (click)="save()">{{submit}}</button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,146 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+            <button ion-button (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title text-center>
+            {{sign_up}}
+        </ion-title>
+        <ion-buttons right>
+
+            <span class="logo">
+                <img src="assets/imgs/login/Group-2.png" class="fire-icon">
+            </span>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <div class="login-back">
+        <div class="row">
+            <div class="col">
+                <div text-center>
+                    <button class="wechat-btn" (click)="goToWechat()" ion-button type="submit">
+                        <img src="assets/imgs/login/wechat.png" id="img-wechat" width="40" height="40"><span id="txt-wechat">{{sign_up_wechat}}</span></button>
+                </div>
+            </div>
+        </div>
+        <div text-center>
+            <h2 class="txt-or">or</h2>
+        </div>
+        <form [formGroup]="registerForm">
+
+            <div text-center>
+                <p ion-text color="danger" *ngIf="submitAttempt && error_warning">{{error_warning}}</p>
+                <p ion-text color="secondary" *ngIf="submitAttempt && text_message">{{text_message}}</p>
+            </div>
+
+            <!-- name -->
+            <ion-item>
+                <ion-input placeholder="{{ph_fname}}" formControlName="name" value={{fname}} type="text"
+                    [class.invalid]="!registerForm.controls.name.valid && (registerForm.controls.name.dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <div text-center>
+                <p class="invalid-message" *ngIf="!registerForm.controls.name.valid  && (registerForm.controls.name.dirty || submitAttempt)">{{error_name}}</p>
+            </div>
+
+            <!-- email -->
+            <ion-item>
+                <ion-input placeholder="{{ph_femail}}" formControlName="email" value={{femail}} type="text"
+                    [class.invalid]="!registerForm.controls.email.valid && (registerForm.controls.email.dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <div text-center>
+                <p class="invalid-message" *ngIf="!registerForm.controls.email.valid  && (registerForm.controls.email.dirty || submitAttempt)">{{error_email}}</p>
+            </div>
+            <!-- password -->
+            <ion-item>
+                <ion-input placeholder="{{ph_fpassword}}" formControlName="password" value={{fpassword}} type="password"
+                    [class.invalid]="!registerForm.controls.password.valid && (registerForm.controls.password.dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <div text-center>
+                <p class="invalid-message" *ngIf="!registerForm.controls.password.valid  && (registerForm.controls.password.dirty || submitAttempt)">{{error_password}}</p>
+            </div>
+
+            <!-- confirm password -->
+            <ion-item>
+                <ion-input placeholder="{{ph_fconfpass}}" formControlName="passconf" value={{fconfpass}} type="password"
+                    [class.invalid]="!registerForm.controls.passconf.valid && (registerForm.controls.passconf.dirty || submitAttempt)"></ion-input>
+            </ion-item>
+            <div text-center>
+                <p class="invalid-message" *ngIf="!registerForm.controls.passconf.valid  && (registerForm.controls.passconf.dirty || submitAttempt)">{{error_password}}</p>
+            </div>
+
+            <!-- birthday -->
+            <div text-left class="birth-text">
+                <p class="birth-p">{{birthday}}
+                    <span class="spn-small" (click)="gotobirthday()">{{why_this}}</span>
+                </p>
+            </div>
+
+            <!-- <ion-item> -->
+            <div class="dob-div">
+                <ion-row class="date-row">
+                    <ion-col col-4>
+                        <ion-datetime placeholder='DD &nbsp;&nbsp;&nbsp;&nbsp;v' [(ngModel)]="date" (ngModelChange)="ondateChange()"
+                            formControlName="date" displayFormat="DD" [max]="today">
+                        </ion-datetime>
+                    </ion-col>
+
+                    <ion-col col-4>
+                        <ion-datetime placeholder='MM &nbsp;&nbsp;&nbsp;v' [(ngModel)]="date" (ngModelChange)="ondateChange()"
+                            formControlName="date" displayFormat="MM" [max]="today">
+                        </ion-datetime>
+                    </ion-col>
+
+                    <ion-col col-4>
+                        <ion-datetime placeholder='YYYY &nbsp;v' [(ngModel)]="date" (ngModelChange)="ondateChange()"
+                            formControlName="date" displayFormat="YYYY" [max]="today">
+                        </ion-datetime>
+                    </ion-col>
+                </ion-row>
+                <!-- </ion-item> -->
+            </div>
+
+            <div text-center>
+                <h3 class="male-female-h3">
+                    <span [ngStyle]="{'color': male_color}" (click)="manClick()">
+                        <img class="img-male" src="{{maleimage}}">
+                        {{male}}
+                    </span>
+                    <span style="margin-left:15px;">
+                        <span [ngStyle]="{'color': female_color}" (click)="womanClick()">
+                            <img class="img-female" src="{{femaleimage}}">
+                            {{female}}
+                        </span>
+                    </span>
+                </h3>
+            </div>
+            <div text-left class="birth-text">
+                <p class="profile-pic-txt">{{profile_picture_txt}}
+                    <span (click)="gotoprofile()" class="spn-small">{{why_this}}</span>
+                </p>
+            </div>
+            <div text-center>
+                <ion-buttons>
+                    <button ion-button (click)="updateProfile()" class="upload-btn">
+                        <span class="btn-align">{{uploadText}}
+                        </span>
+                        <div text-right></div>
+                    </button>
+                    <img class="upload-icon" src="{{uploadIcon}}" width="20" height="20">
+                </ion-buttons>
+            </div>
+        </form>
+
+        <div text-center>
+            <p class="click-txt">{{by_clicking_sign_up}}
+                <span class="tp-spn" (click)="gototerms()">{{terms_policy}}</span>
+            </p>
+            <button class="submit-btn" ion-button (click)="save()">{{sign_up}}</button>
+        </div>
+    </div>
+
+</ion-content>

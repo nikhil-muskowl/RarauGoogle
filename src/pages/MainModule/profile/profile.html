@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-title text-center>
+      {{my_profile}}
+    </ion-title>
+    <ion-buttons right>
+      <button class="back-btn">
+        <img src="assets/icon/notification.png" width="30px" height="30px" (click)="goNoti()">
+      </button>
+      <button class="back-btn">
+        <img src="assets/icon/settings.png" width="30px" height="30px" (click)="goSetting()">
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-5>
+        <div class="profile-container">
+          <img src="{{userImage}}" class="image">
+          <div class="profile-image" (click)="changeProfilePhoto()">
+            <div class="profile-image-text">
+              <img class="camera-img" src="assets/imgs/camera.png" width="15" height="15">
+              <p>{{change_text}}</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>{{name}}</h3>
+      </ion-col>
+
+      <ion-col col-7>
+        <div>
+
+          <ion-row>
+            <ion-col col-6>
+              <div class="followers-btn">
+                <h2 text-center>{{followers}}</h2>
+                <p>{{followers_txt}}</p>
+              </div>
+            </ion-col>
+            <ion-col col-6>
+              <div class="flames-btn">
+                <h2 text-center>{{flames}}</h2>
+                <p>{{flames_txt}}</p>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col text-center (click)="viewActivity()">
+              <img src="assets/imgs/Profile/My Profile Icon/view.png" class="img-responsive">
+              <p style="font-size: 2.5vw;">{{view_log}}</p>
+            </ion-col>
+
+            <ion-col text-center (click)="savedStories()">
+              <img src="assets/imgs/Profile/My Profile Icon/saved.png" class="img-responsive">
+              <p style="font-size: 2.5vw;">{{saved_stories}}</p>
+            </ion-col>
+
+            <ion-col text-center>
+            </ion-col>
+            <ion-col text-center>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div>
+    <ion-segment [(ngModel)]="user" color="danger">
+      <ion-segment-button value="Stories">
+        {{stories}}
+      </ion-segment-button>
+      <ion-segment-button value="Ranking">
+        {{ranking}}
+      </ion-segment-button>
+      <ion-segment-button value="Followers">
+        {{followers_txt}}
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="user">
+    <div *ngSwitchCase="'Stories'">
+      <story [userid]="user_id"></story>
+    </div>
+
+    <ion-grid class="segment-grid" *ngSwitchCase="'Ranking'">
+      <ranking></ranking>
+    </ion-grid>
+
+    <div *ngSwitchCase="'Followers'">
+      <followers [userid]="user_id"></followers>
+    </div>
+  </div>
+</ion-content>

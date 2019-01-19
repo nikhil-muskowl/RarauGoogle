@@ -1,0 +1,100 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+      <ion-buttons left>
+        <button ion-button (click)="goBack()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title text-center>
+        {{title}}
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content>
+  <div class="story-top">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{user_image_thumb}}">
+      </ion-avatar>
+      <h3>{{user_name}}{{apo_story}}</h3>
+      <p class="ellipsis-2">
+        <span *ngFor="let tag of tags; let j = index;">
+          <span *ngIf="tags.length-1 > j">{{tag}},&nbsp;</span>
+          <span *ngIf="tags.length-1 == j">{{tag}}</span>
+        </span></p>
+    </ion-item>
+  </div>
+
+
+  <div class="swipe-bar">
+    <ion-row>
+      <ion-col col-6 offset-3 swipeAll (swipedown)="goToStory($event)">
+        <ion-icon style="font-size:25px;" name="ios-arrow-down-outline"></ion-icon>
+      </ion-col>
+      <ion-col col-3>
+
+        <span class="flame-number">
+          {{totalLikes}}
+          <span>
+            <img src="assets/imgs/story/Positive-Flame.png" width="15" height="15">
+          </span>
+        </span>
+
+        <span class="flame-number">
+          {{totalDislikes}}
+          <span>
+            <img src="assets/imgs/story/Negative-Flame.png" width="15" height="15">
+          </span>
+        </span>
+
+      </ion-col>
+    </ion-row>
+  </div>
+
+
+  <div class="comment-bar">
+    <ion-list no-lines>
+      <form *ngIf="isComment" [formGroup]="commentForm">
+
+        <ion-item>
+          <button ion-button clear item-left class="btn-left">{{say_something}}</button>
+          
+          <ion-input placeholder="Type here" formControlName="comment" type="text" [class.valid]="!formErrors.comment"
+            [class.invalid]="formErrors.comment"></ion-input>
+
+          <button ion-button clear item-right class="btn-right" (click)="commentStory()">
+            <ion-icon name="ios-send"></ion-icon>
+          </button>
+          
+        </ion-item>
+
+        <ion-item *ngIf="formErrors.comment">
+          <p class="invalid-text">{{formErrors.comment}}</p>
+        </ion-item>
+
+      </form>
+    </ion-list>
+  </div>
+
+<div class="story-commnets">
+    <ion-list>
+        <div *ngFor="let comment of commData">
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="{{comment.user_image_thumb}}">
+            </ion-avatar>
+            <h2>{{comment.user_name}}</h2>
+            <p>{{comment.comment}}</p>
+            
+            <ion-note item-end (click)="reportComment(comment.id)">{{report_comment}}</ion-note>
+          </ion-item>
+         
+          <div class="comment-date">
+              <p>{{comment.date}}</p>
+          </div>
+        </div>
+      </ion-list>
+</div>
+
+</ion-content>

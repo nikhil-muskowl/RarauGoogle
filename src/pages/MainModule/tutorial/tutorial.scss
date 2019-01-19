@@ -1,0 +1,47 @@
+page-tutorial {
+    h1,
+    h2,
+    h3 {
+        color: #fff !important;
+    }
+    .story-footer {
+        position: fixed;
+        bottom: -5px;
+        width: 100%;
+        color: #fff;
+        .grid {
+            padding: 0px !important;
+        }
+        p {
+            font-size: 12px;
+        }
+    }
+    .text-left {
+        text-align: left;
+    }
+    .text-right {
+        text-align: right;
+    }
+    .btn-back {
+        color: #fff !important;
+        background: linear-gradient(to right, #ec3747, #f45a43) !important;
+        background: -webkit-gradient(linear, left top, right top, from(#ec3747), to(#f45a43)) !important;
+        width: 100%;
+        padding: 10px 10px;
+        margin-bottom: 10px;
+    }
+    .tutorial_chk .slide-zoom {
+        background-color: rgba(0, 0, 0, 0.3) !important;
+    }
+    .background_tute {
+        -webkit-background-size: cover !important;
+        -moz-background-size: cover !important;
+        -o-background-size: cover !important;
+        background-size: cover !important; // background-position: center!important;
+        height: 100% !important;
+        background-repeat: no-repeat !important;
+    }
+    .white-col {
+        color: #fff !important;
+    }
+}

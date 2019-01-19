@@ -1,0 +1,106 @@
+page-story-screen {
+    h1,
+    h2,
+    h3 {
+        color: #fff !important;
+    }
+    .story-footer {
+        position: fixed;
+        bottom: -5px;
+        width: 100%;
+        color: #fff;
+        .grid{
+            padding: 0px !important;
+        }
+        p {
+            font-size: 12px;
+        }
+    }
+    ion-fab[bottom] {
+        margin-bottom: 30%;
+    }
+    .fire-div {
+        text-align: center;
+        .fire-image {
+            margin-left: 30%;
+            width: 30px !important;
+            height: 30px !important;
+        }
+    }
+    .background {
+        background-color: #000;
+        color: #fff;
+        min-height: 100%;
+        width: 100%;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+    }
+    hr {
+        border-top: 2px solid #fff;
+    }
+    .flame-number {
+        float: right;
+        color: #fff;
+        font-size: 1.5rem;
+        margin-top: 20px;
+        float: left;
+    }
+    .comment-back {
+        background-color: #000;
+        color: #fff;
+    }
+    p {
+        margin-top: -4px;
+    }
+    a {
+        color: #fff;
+    }
+    .button-md {
+        background-color: #c3c3c3;
+        text-transform: unset !important;
+    }
+    .item-md {
+        border: 1px solid #cacaca;
+        border-radius: 35px;
+    }
+    .item-md.item-block .item-inner {
+        margin-top: -10px;
+    }
+    .item-md.item-block .item-inner {
+        margin-top: 1px;
+    }
+    ion-button {
+        padding: 24px 10px;
+        border-bottom-left-radius: 15px;
+        border-top-left-radius: 15px;
+    }
+    .item-md .item-button {
+        height: 48px !important;
+        font-size: 1.4rem;
+    }
+    .item-md [item-left] {
+        margin: -6px 0px -6px -16px;
+    }
+    .button-clear-md {
+        color: #000 !important;
+    }
+    .bottom-sec {
+        position: sticky;
+        background-color: #000;
+        color: #fff;
+        top: 67vh;
+    }
+    .back-btn {
+        background: transparent !important;
+    }
+    .circle-pic {
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+    .comment-img {
+        height: 15px !important;
+        width: 15px !important;
+    }
+
+}

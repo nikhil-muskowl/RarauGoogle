@@ -1,0 +1,40 @@
+<ion-content>
+  <ion-fab left top small class="back_layer_hide">
+    <button (click)="back()" ion-fab clear color="transparent">
+      <ion-icon name="arrow-back" color="light"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-fab right top small>
+    <button (click)="flash()" ion-fab clear color="transparent" class="flash">
+      <ion-icon name="ios-flash-outline" *ngIf="flashMode == 'off'" color="light"></ion-icon>
+      <ion-icon name="ios-flash" *ngIf="flashMode == 'on'" color="light"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-fab left bottom small>
+    <button (click)="switchCamera()" ion-fab clear color="transparent">
+      <ion-icon name="reverse-camera" color="light"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-fab right bottom small>
+    <button (click)="openGallery()" ion-fab color="gray">
+      <ion-icon name="albums"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <!-- <ion-fab right bottom small>
+    <button (click)="flash()" ion-fab clear color="transparent" class="flash">  
+      <ion-icon name="ios-flash-outline" *ngIf="flashMode == 'off'" color="light"></ion-icon>
+      <ion-icon name="ios-flash" *ngIf="flashMode == 'on'" color="light"></ion-icon>
+    </button>
+  </ion-fab> -->
+
+  <ion-fab center bottom medium>
+    <button (click)="takePicture()" ion-fab color="gray" class="take-photo">
+      <ion-icon name=""></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

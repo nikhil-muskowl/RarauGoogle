@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+        <ion-buttons left>
+        <button ion-button (click)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </button>
+        </ion-buttons>
+        <ion-title text-center>
+        {{activity_log}}
+        </ion-title>
+        <ion-buttons right>
+    
+        <span class="logo">
+            <img src="assets/imgs/login/Group-2.png" class="fire-icon">        
+        </span>
+        </ion-buttons>
+    </ion-navbar>
+    </ion-header>
+
+<ion-content padding>
+  <div>
+    <ion-card *ngFor="let record of model; let i = index;">
+      <ion-card-content>
+        <ion-row justify-content-between>
+          <h2 class="ellipsis-2">
+            <b>{{record.user_name}}</b>
+          </h2>
+          <p class="ellipsis-2">{{record.text}}</p>
+          <div class="mrgn-10"></div>
+          <p>{{record.created_date}}</p>
+          <!-- <p>{{record.Location}}</p> -->
+
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+  <ion-infinite-scroll (ionInfinite)="onScrollDown($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

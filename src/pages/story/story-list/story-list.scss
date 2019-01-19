@@ -1,0 +1,89 @@
+page-story-list {    
+
+
+    h1,h2,p {
+        color: #000 !important;
+        font-weight: 500 !important;
+    }
+    
+    .list {
+        
+        .p-date {
+            font-size: 1rem;
+            padding: 10px 0px 10px 0px;
+        }
+        .note-md {
+            color: #333;
+        }
+
+        .fire-div{
+            text-align: center;
+            .fire-image{
+                margin-left: 30%;
+                width: 30px !important;
+                height: 30px !important;
+                
+            }
+        }
+
+     
+
+        .item-md ion-avatar ion-img, .item-md ion-avatar img {
+            border-radius: 50%;
+            overflow: hidden;
+            width: 80px;
+            height: 80px;
+        }
+
+        .item-md ion-avatar {
+            min-width: 50px;
+            min-height: 150px;
+        }
+        
+
+        .flame-number {
+            float: right;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        p {
+            margin-top: 0px;
+        }
+        .img-grid {
+            padding: 2px;
+        }
+        .vertical-align {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .background-lvl {
+            text-align: center;
+            font-size: 10px;
+            background-image: url(../assets/imgs/story/box.png);
+            width: 45px;
+            height: 15px;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center center;
+            margin-left: auto;
+            padding: 0px;
+            margin-right: auto;
+            border-radius: 10px;
+        }
+        .lvl-image {
+            position: relative;
+            top: -15px;
+            left: 0;
+            border-radius: 10px;
+        }
+    }
+    .back-btn {
+        background: transparent !important;
+    }
+    .circle-pic {
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+
+    
+}

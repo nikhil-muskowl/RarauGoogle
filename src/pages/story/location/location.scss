@@ -1,0 +1,51 @@
+page-location {
+    .back-btn {
+        background: transparent !important;
+        color: #fff;
+        margin-top: 10px !important;
+    }
+    ion-header button {
+        color: #fff;
+    }
+    .searchbar-md {
+        background: transparent !important;
+        padding: 8px;
+    }
+    .background {
+        background-color: transparent !important;
+        color: #fff;
+        min-height: 100%;
+        width: 100%;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+    }
+    .publish-btn {
+        // .button-inner {
+        border-radius: 15px;
+        background: linear-gradient(to bottom, #ec3747, #f45a43);
+        margin-bottom: 5px;
+        color: #fff !important;
+        padding: 12px;
+        border: 1px solid #ec3747;
+    }
+    .myLocBtn {
+        background-color: #fff !important;
+        color: #ec3747 !important;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+    .myLocBtnclicked {
+        background-color: #ec3747 !important;
+        color: #fff !important;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+    .div-botm {
+        width: 100% !important;
+        position: absolute;
+        bottom: 0px;
+    }
+}

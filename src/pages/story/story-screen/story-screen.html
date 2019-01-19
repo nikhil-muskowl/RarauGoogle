@@ -1,0 +1,156 @@
+<ion-header>
+    <ion-navbar hideBackButton>
+      <ion-buttons left>
+        <button ion-button (click)="goBack()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title text-center>
+        {{story}}
+      </ion-title>
+      <ion-buttons right>
+  
+        <span class="logo">
+          <img src="assets/imgs/login/Group-2.png" class="fire-icon">        
+        </span>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content>
+  <ion-slides *ngIf="data && data.length" autoplay="3000" loop="true" speed="500" (ionSlideDidChange)="slideChanged()">
+    <ion-slide *ngFor="let slide of data" class="background" [style.background]="'url('+slide.image+')'">
+      <ion-grid>
+        <ion-row style="margin-bottom: -25px;">
+          <ion-col col-3 text-center>
+            <img class="circle-pic" src="{{slide.user_image}}" width="70" height="70">
+          </ion-col>
+          <ion-col col-9>
+            <h3>{{slide.user_name}}'s Story</h3>
+            <span *ngFor="let tag of slide.tags; let j = index;">
+              <span *ngIf="slide.tags.length-1 > j">{{tag}}, </span>
+              <span *ngIf="slide.tags.length-1 == j">{{tag}}</span>
+            </span>
+          </ion-col>
+        </ion-row>
+        <br>
+        <hr>
+
+        <div style="height:400px;" swipeAll (swipe)="swipeAll($event)" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event)"
+          (swipeup)="swipeUp($event)" (swipedown)="swipeDown($event)">
+        </div>
+
+        <!-- <ion-fab left bottom small>
+          <button (click)="saveStory()" ion-fab clear color="transparent">
+            <img src="assets/icon/download.png" height="50" width="50">
+          </button>
+        </ion-fab> -->
+
+        <ion-fab right bottom small *ngIf="slide.receipt_private == 0 || slide.receipt_private == null">
+          <button (click)="showReceipt(slide.receipt)" ion-fab clear color="transparent">
+            <img src="assets/icon/invoice-icon.png" height="50" width="50">
+          </button>
+        </ion-fab>
+
+        <div class="story-footer">
+          <ion-grid>
+            <ion-row>
+              <!-- <ion-col col-9> -->
+              <!-- <form>
+                  <ion-item>
+                    <button ion-button clear item-left>{{emoji}}</button>
+                    <ion-input placeholder="Type here" type="text"></ion-input>
+                  </ion-item>
+                </form> -->
+              <button (click)="saveStory()" ion-fab clear color="transparent">
+                <img src="assets/icon/download.png" height="50" width="50">
+              </button>
+              <button (click)="reportStory(slide.id)" ion-fab clear color="transparent">
+                <img src="assets/icon/download.png" height="50" width="50">
+              </button>
+              <!-- </ion-col> -->
+              <ion-col col-3>
+                <div class="fire-div">
+                  <span *ngIf="slide.totalFlames > 0">{{slide.totalLikes}}
+                    <img class="fire-image" height="30" width="30" src="assets/imgs/story/Positive-Flame.png">
+                  </span>
+                  <span *ngIf="slide.totalFlames < 0">{{slide.totalDislikes}}
+                    <img class="fire-image" height="30" width="30" src="assets/imgs/story/Negative-Flame.png">
+                  </span>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row class="comment-back" swipeAll (swipeup)="goToComments($event, slide)" text-center>
+              <ion-col col-12>
+                <p>{{swipe_comment}}</p>
+                <div>
+                  <img class="comment-img" src="assets/imgs/up-arrow.png">
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-grid>
+    </ion-slide>
+
+  </ion-slides>
+
+  <!-- <ion-grid class="background" [style.background]="'url('+image+')'">
+    <ion-row style="margin-bottom: -25px;">
+      <ion-col col-3 text-center>
+        <img class="circle-pic" src="{{user_image}}" width="70" height="70">
+      </ion-col>
+      <ion-col col-9>
+        <h3>{{user_name}}'s Story</h3>
+        <span *ngFor="let tag of tags; let j = index;">
+          <span *ngIf="tags.length-1 > j">{{tag}}, </span>
+          <span *ngIf="tags.length-1 == j">{{tag}}</span>
+        </span>
+      </ion-col>
+    </ion-row>
+    <br>
+    <hr>
+
+    <div style="height:400px;" swipeAll (swipe)="swipeAll($event)" (swipeleft)="swipeLeft($event)" (swiperight)="swipeRight($event)"
+      (swipeup)="swipeUp($event)" (swipedown)="swipeDown($event)">
+    </div>
+
+    <ion-fab left bottom small>
+      <button (click)="saveStory()" ion-fab clear color="transparent">
+        <img src="assets/icon/download.png" height="50" width="50">
+      </button>
+    </ion-fab>
+
+    <ion-grid class="story-footer">
+      <ion-row>
+        <ion-col col-9>
+          <form>
+            <ion-item>
+              <button ion-button clear item-left>Emoji</button>
+              <ion-input placeholder="Type here" type="text"></ion-input>
+            </ion-item>
+          </form>
+        </ion-col>
+        <ion-col col-3>
+          <div class="fire-div">
+            <span *ngIf="totalFlames > 0">{{totalLikes}}
+              <img class="fire-image" height="30" width="30" src="assets/imgs/story/Positive-Flame.png">
+            </span>
+            <span *ngIf="totalFlames < 0">{{totalDislikes}}
+              <img class="fire-image" height="30" width="30" src="assets/imgs/story/Negative-Flame.png">
+            </span>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="comment-back" swipeAll (swipeup)="goToComments($event)" text-center>
+        <ion-col>
+          <p>Swipe up to View all Comments</p>
+          <div>
+            <img src="assets/imgs/up-arrow.png" width="15" height="15">
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-grid> -->
+</ion-content>
