@@ -145,22 +145,28 @@ export class HomePage {
     }
   }
 
-  getCurrenLocation() {
+  public getCurrenLocation() {
     this.locationTracker.setLocation();
 
-    if (this.isMycurrLoc == 0) {
-      this.myLocBtn = 'myLocBtnclicked';
-      this.isMycurrLoc = 1;
-      this.setMap();
-    }
-    else {
-      this.myLocBtn = 'myLocBtn';
-      this.isMycurrLoc = 0;
-      this.searchCat = undefined;
-      this.searchUse = undefined;
-      this.serLatitude = undefined;
-      this.serLongitude = undefined;
-    }
+    // if (this.isMycurrLoc == 0) {
+    //   this.myLocBtn = 'myLocBtnclicked';
+    //   this.isMycurrLoc = 1;
+    //   this.setMap();
+    // }
+    // else {
+    //   this.myLocBtn = 'myLocBtn';
+    //   this.isMycurrLoc = 0;
+    //   this.searchCat = undefined;
+    //   this.searchUse = undefined;
+    //   this.serLatitude = undefined;
+    //   this.serLongitude = undefined;
+    // }
+
+    this.searchCat = undefined;
+    this.searchUse = undefined;
+    this.serLatitude = undefined;
+    this.serLongitude = undefined;
+    this.setMap();
   }
 
   handleIFrameLoadEvent(): void {
@@ -423,6 +429,26 @@ export class HomePage {
     this.homeSlides.slidePrev();
   }
 
+  CenterControl(centerControlDiv) {
+    var controlUI = document.createElement('div');
+
+    // controlUI.className = 'background-rank';
+    controlUI.className = 'map-top';
+    controlUI.style.cursor = 'pointer';
+    // controlUI.style.backgroundImage = "url('icon/event.png')";
+    controlUI.style.height = '32px';
+    controlUI.style.width = '32px';
+    controlUI.style.top = '11px';
+    // controlUI.innerHTML = 'Center Map';
+    controlUI.style.left = '120px';
+
+    centerControlDiv.appendChild(controlUI);
+
+    centerControlDiv.addEventListener('click', function () {
+      this.getCurrenLocation();
+    });
+  }
+
   initMap() {
     this.zone.run(() => {
 
@@ -440,15 +466,34 @@ export class HomePage {
         scaleControl: true,
       });
 
-      // var controlMarkerUI = document.createElement('DIV');;
-      // controlMarkerUI.style.cursor = 'pointer';
-      // controlMarkerUI.style.backgroundImage = "url(assets/icon/Camera2.png)";
-      // controlMarkerUI.style.height = '28px';
-      // controlMarkerUI.style.width = '25px';
-      // controlMarkerUI.style.top = '11px';
-      // controlMarkerUI.style.left = '120px';
-      // mapEle.appendChild(controlMarkerUI);
-      // this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(controlMarkerUI);
+      // var centerControlDiv = document.createElement('div');
+      // var centerControl = this.CenterControl(centerControlDiv);
+
+      var controlUI = document.createElement('div');
+
+      // controlUI.className = 'background-rank';
+      controlUI.className = 'map-top';
+      controlUI.id = 'map-top';
+      controlUI.style.cursor = 'pointer';
+      // controlUI.style.backgroundImage = "url('icon/event.png')";
+      controlUI.style.height = '32px';
+      controlUI.style.width = '32px';
+      controlUI.style.top = '11px';
+      // controlUI.innerHTML = 'Center Map';
+      controlUI.style.left = '120px';
+
+      // this.map.appendChild(controlUI);
+
+      // centerControlDiv.addEventListener('click', function () {
+      //   this.getCurrenLocation();
+      // });
+      var object = this;
+      controlUI.addEventListener('click', function () {
+        object.getCurrenLocation();
+
+      });
+
+      this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(controlUI);
 
       let markers = [];
 
