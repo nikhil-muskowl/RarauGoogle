@@ -118,7 +118,6 @@ import { FollowingComponent } from '../components/following/following';
 import { RankingComponent } from '../components/ranking/ranking';
 import { FollowersComponent } from '../components/followers/followers';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
-import { MapComponent } from '../components/map/map';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/language/', '.json');
@@ -160,7 +159,6 @@ export function createTranslateLoader(http: HttpClient) {
     RankingComponent,
     FollowersComponent,
     ProgressBarComponent,
-    MapComponent,
     SavedStoriesPage,
     SearchPage,
     SingleStoryPage,
@@ -249,7 +247,6 @@ export function createTranslateLoader(http: HttpClient) {
     RankingComponent,
     FollowersComponent,
     ProgressBarComponent,
-    MapComponent,
     SavedStoriesPage,
     SearchPage,
     SingleStoryPage,

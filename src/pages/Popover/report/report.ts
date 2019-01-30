@@ -98,6 +98,9 @@ export class ReportPage {
     this.translate.get('success').subscribe((text: string) => {
       this.success_txt = text;
     });
+    this.translate.get('submit').subscribe((text: string) => {
+      this.submit = text;
+    });
     this.translate.get('report_submit').subscribe((text: string) => {
       this.report_submit = text;
     });

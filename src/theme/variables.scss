@@ -81,6 +81,18 @@ ion-header ion-title .toolbar-title {
     font-size: 2.2rem !important;
 }
 
+.toolbar-title
+.toolbar-title-md{
+    padding: 0 0 !important;
+    color: #fff !important;
+    font-size: 6vw;
+}
+.toolbar-title-ios{
+    padding: 0 0 !important;
+    color: #fff !important;
+    font-size: 6vw;
+}
+
 /* Added on 5_11_2018 */
 
 /* for header logo */
@@ -229,9 +241,13 @@ page-story-category {
     page-others-profile .segment-grid {
         margin-top: 5px !important;
     }
-    .item-ios ion-avatar[item-start] {
-        margin: 16px 16px 0px 0px !important;
+    page-search .overlay {
+        opacity: 0 !important;
+        background-color: none !important;
     }
+    // .item-ios ion-avatar[item-start] {
+    //     margin: 16px 16px 0px 0px !important;
+    // }
     .select-ios {
         display: inline-block !important;
         padding: 11px 8px 2px 18px !important;
@@ -256,6 +272,10 @@ page-story-category {
     }
     page-others-profile .segment-grid {
         margin-top: 5px !important;
+    }
+    page-search .overlay {
+        opacity: 0 !important;
+        background-color: none !important;
     }
     .item-ios ion-avatar[item-start] {
         margin: 16px 16px 0px 0px !important;
@@ -284,6 +304,10 @@ page-story-category {
     }
     page-others-profile .segment-grid {
         margin-top: 5px !important;
+    }
+    page-search .overlay {
+        opacity: 0 !important;
+        background-color: none !important;
     }
     .item-ios ion-avatar[item-start] {
         margin: 16px 16px 0px 0px !important;
@@ -319,6 +343,10 @@ page-story-category {
     page-others-profile .segment-grid {
         margin-top: 5px !important;
     }
+    page-search .overlay {
+        opacity: 0 !important;
+        background-color: none !important;
+    }
     .item-ios ion-avatar[item-start] {
         margin: 16px 16px 0px 0px !important;
     }
@@ -346,6 +374,10 @@ page-story-category {
     }
     page-others-profile .segment-grid {
         margin-top: 5px !important;
+    }
+    page-search .overlay {
+        opacity: 0 !important;
+        background-color: none !important;
     }
     .item-ios ion-avatar[item-start] {
         margin: 16px 16px 0px 0px !important;
@@ -375,9 +407,13 @@ page-story-category {
     page-others-profile .segment-grid {
         margin-top: 5px !important;
     }
-    .item-ios ion-avatar[item-start] {
-        margin: 16px 16px 0px 0px !important;
+    page-search .overlay {
+        opacity: 0 !important;
+        background-color: none !important;
     }
+    // .item-ios ion-avatar[item-start] {
+    //     margin: 16px 16px 0px 0px !important;
+    // }
     .select-ios {
         display: inline-block !important;
         padding: 11px 8px 2px 18px !important;

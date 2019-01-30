@@ -19,7 +19,9 @@
 </ion-header>
 
 <ion-content>
+
   <div class="home-slides" style="height: 20%;">
+
     <ion-slides slidesPerView="3" #homeSlides>
       <ion-slide *ngFor="let category of categories; let i = index;">
         <div class="category-rank">
@@ -46,6 +48,10 @@
     </button>
 
   </div>
+
+  <button style="background-color: #f3f2f2 !important;" ion-button icon-only class="{{myLocBtn}}" (click)="getCurrenLocation()">
+    <ion-icon ios="ios-locate" md="md-locate"></ion-icon>
+  </button>
 
   <div #map id='map' style="height: 60% !important;">
   </div>
@@ -78,13 +84,15 @@
   <!-- <map></map> -->
 
   <div style="height: 20%;">
-    <ion-slides *ngIf="Advdata" autoplay="3000" loop="true" speed="500" (ionSlideDidChange)="slideChanged()">
+    <!-- <ion-slides *ngIf="Advdata" autoplay="3000" loop="true" speed="500" (ionSlideDidChange)="slideChanged()">
       <ion-slide *ngFor="let slide of Advdata">
         <div>
           <img class="adv-img" src="http://rarau.hk/{{slide.image}}" height="100" width="100">
-          <!-- <p>{{slide.title}}</p> -->
         </div>
       </ion-slide>
-    </ion-slides>
+    </ion-slides> -->
+    <iframe width="100%" [src]="trustedVideoUrl ? trustedVideoUrl : null" (load)="trustedVideoUrl ? handleIFrameLoadEvent() : null"
+      frameborder="0" allowfullscreen></iframe>
+
   </div>
 </ion-content>

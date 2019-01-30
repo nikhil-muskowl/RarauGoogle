@@ -67,6 +67,7 @@ export class RankingPage {
     public languageProvider: LanguageProvider, ) {
 
     this.isSearch = false;
+
     this.platform.registerBackButtonAction(() => {
       this.navCtrl.setRoot(HomePage);
     });
@@ -169,6 +170,9 @@ export class RankingPage {
         }
       );
     }
+    else {
+      this.network.displayNetworkUpdate();
+    }
   }
 
   bindUpdata() {
@@ -239,6 +243,9 @@ export class RankingPage {
           this.loadingProvider.dismiss();
         }
       );
+    }
+    else {
+      this.network.displayNetworkUpdate();
     }
   }
 

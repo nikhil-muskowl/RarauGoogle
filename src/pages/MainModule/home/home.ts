@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { NavController, Platform, Modal, ModalController, ModalOptions, IonicPage, ViewController } from 'ionic-angular';
+import { Loading, LoadingController, NavController, Platform, Modal, ModalController, ModalOptions, IonicPage, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SearchResultPage } from '../../SearchModule/search-result/search-result';
 import { StoryListPage } from '../../story/story-list/story-list';
@@ -16,6 +16,7 @@ import { Slides } from 'ionic-angular';
 import { OthersProfilePage } from '../../AccountModule/others-profile/others-profile';
 import { EventListPage } from '../../Events/event-list/event-list';
 import { NetworkProvider } from '../../../providers/network/network';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 declare var google: any;
 
@@ -33,6 +34,10 @@ export class HomePage {
   regionals: any = [];
   currentregional: any;
 
+  //for css
+  public myLocBtn;
+  public isMycurrLoc;
+
   public images: Array<any>;
   public latLong;
   public zoomlatLong;
@@ -46,6 +51,13 @@ export class HomePage {
 
   public Advdata: any;
   public Advres;
+  //youtube
+  public trustedVideoUrl;
+  loading: Loading;
+  video: any = {
+    url: 'https://www.youtube.com/embed/N4Onmbz3cDA',
+    title: 'Udaipur (City of Lakes)'
+  };
 
   searchForm: FormGroup;
   private formData: any;
@@ -86,6 +98,8 @@ export class HomePage {
     public storyService: StoryServiceProvider,
     public LoginProvider: LoginProvider,
     public network: NetworkProvider,
+    public loadingCtrl: LoadingController,
+    private domSanitizer: DomSanitizer,
     public translate: TranslateService,
     public languageProvider: LanguageProvider, ) {
 
@@ -95,14 +109,27 @@ export class HomePage {
   ngOnInit() {
     // Let's navigate from TabsPage to Page1
     this.locationTracker.setLocation();
+    //css for loc button
+    this.isMycurrLoc = 0;
+    this.myLocBtn = 'myLocBtn';
 
     this.user_id = this.LoginProvider.isLogin();
     this.language_id = this.languageProvider.getLanguageId();
 
     this.setText();
 
-    console.log('this.locationTracker.getLatitude : ' + this.locationTracker.getLatitude());
-    console.log('this.locationTracker.getLongitude : ' + this.locationTracker.getLongitude());
+    //for youtube video
+    this.trustedVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(this.video.url);
+    // this.loading = this.loadingCtrl.create({
+    //   content: 'Please wait...'
+    // });
+    // this.loading.present();
+
+    this.setMap();
+  }
+
+  setMap() {
+
     this.latitude = parseFloat(this.locationTracker.getLatitude());
     this.longitude = parseFloat(this.locationTracker.getLongitude());
 
@@ -116,6 +143,28 @@ export class HomePage {
     else {
       this.network.displayNetworkUpdate();
     }
+  }
+
+  getCurrenLocation() {
+    this.locationTracker.setLocation();
+
+    if (this.isMycurrLoc == 0) {
+      this.myLocBtn = 'myLocBtnclicked';
+      this.isMycurrLoc = 1;
+      this.setMap();
+    }
+    else {
+      this.myLocBtn = 'myLocBtn';
+      this.isMycurrLoc = 0;
+      this.searchCat = undefined;
+      this.searchUse = undefined;
+      this.serLatitude = undefined;
+      this.serLongitude = undefined;
+    }
+  }
+
+  handleIFrameLoadEvent(): void {
+    // this.loading.dismiss();
   }
 
   setText() {
@@ -193,11 +242,12 @@ export class HomePage {
 
         this.searchUse = data.searchUse;
         this.searchCat = data.searchCat;
+        console.log('this.searchCat : ' + this.searchCat);
         if (data.searchCat == undefined && data.latitude == undefined && data.longitude == undefined && data.searchUse != undefined) {
           this.navCtrl.push(SearchResultPage, data);
         }
         else {
-          // this.getMarkers();
+          this.getMarkers();
         }
       }
     });
@@ -247,6 +297,8 @@ export class HomePage {
   }
 
   getMarkers() {
+
+    this.regionals = [];
     this.user_id = this.LoginProvider.isLogin();
     if (this.serLatitude != undefined && this.serLongitude != undefined) {
       this.latLong = {
@@ -315,7 +367,11 @@ export class HomePage {
             console.log();
           });
           if (this.serLatitude != undefined && this.serLongitude != undefined) {
-
+            this.regionals.push({
+              // "marker_thumb": element.marker_thumb,
+              "latitude": parseFloat(this.serLatitude),
+              "longitude": parseFloat(this.serLongitude),
+            });
           }
           else {
             this.regionals.push({
@@ -324,15 +380,28 @@ export class HomePage {
               "longitude": parseFloat(this.longitude),
             });
           }
+          //set in map
           this.initMap();
         }
         else {
-          this.regionals.push({
-            // "marker_thumb": element.marker_thumb,
-            "latitude": parseFloat(this.latitude),
-            "longitude": parseFloat(this.longitude),
-          });
+          if (this.serLatitude != undefined && this.serLongitude != undefined) {
+            this.regionals.push({
+              // "marker_thumb": element.marker_thumb,
+              "latitude": parseFloat(this.serLatitude),
+              "longitude": parseFloat(this.serLongitude),
+            });
+          }
+          else {
+            this.regionals.push({
+              // "marker_thumb": element.marker_thumb,
+              "latitude": parseFloat(this.latitude),
+              "longitude": parseFloat(this.longitude),
+            });
+          }
+
+          //set in map
           this.initMap();
+
           this.alertProvider.title = this.sorry;
           this.alertProvider.message = this.no_location;
           this.alertProvider.showAlert();
@@ -355,21 +424,31 @@ export class HomePage {
   }
 
   initMap() {
-
     this.zone.run(() => {
+
       var mapEle = this.mapRef.nativeElement;
 
       this.map = new google.maps.Map(mapEle, {
         zoom: 17,
         center: this.latLong,
         // center: { lat: parseFloat(this.latitude), lng: parseFloat(this.longitude) },
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
+        // mapTypeId: google.maps.MapTypeId.TERRAIN,
+        // styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }],
         disableDoubleClickZoom: false,
         disableDefaultUI: true,
         zoomControl: true,
         scaleControl: true,
       });
+
+      // var controlMarkerUI = document.createElement('DIV');;
+      // controlMarkerUI.style.cursor = 'pointer';
+      // controlMarkerUI.style.backgroundImage = "url(assets/icon/Camera2.png)";
+      // controlMarkerUI.style.height = '28px';
+      // controlMarkerUI.style.width = '25px';
+      // controlMarkerUI.style.top = '11px';
+      // controlMarkerUI.style.left = '120px';
+      // mapEle.appendChild(controlMarkerUI);
+      // this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(controlMarkerUI);
 
       let markers = [];
 

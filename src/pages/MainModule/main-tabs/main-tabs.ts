@@ -14,6 +14,7 @@ import { LoginPage } from '../../AccountModule/login/login';
   templateUrl: 'main-tabs.html',
 })
 export class MainTabsPage {
+
   tab1Root: any = HomePage;
   tab2Root: any = MyPetPage;
   tab3Root: any = GalleryPage;
@@ -31,46 +32,58 @@ export class MainTabsPage {
     public navCtrl: NavController,
     public LoginProvider: LoginProvider,
   ) {
-
     if (params.data.tabIndex) {
       this.mySelectedIndex = params.data.tabIndex || 0;
+
     } else {
       this.mySelectedIndex = 0;
     }
   }
+
+
+  // ngOnInit() {
+  //   this.pet();
+  //   this.gallery();
+  //   this.rank();
+  //   this.profile();
+  // }
 
   home() {
     this.tab1Root = HomePage;
   }
 
   pet() {
+    console.log("this.tab2Root MyPetPage");
     this.user_id = this.LoginProvider.isLogin();
     if (!this.user_id) {
-      this.navCtrl.setRoot(LoginPage);
+      this.tab2Root = LoginPage;
     } else {
       this.tab2Root = MyPetPage;
     }
   }
 
   gallery() {
+    console.log("this.mySelectedIndex GalleryPage");
     this.user_id = this.LoginProvider.isLogin();
     if (!this.user_id) {
-      this.navCtrl.setRoot(LoginPage);
+      this.tab5Root = LoginPage;
     } else {
-      this.tab2Root = GalleryPage;
+      this.tab3Root = GalleryPage;
     }
   }
 
   rank() {
+    console.log("this.tab4Root RankingPage");
     this.tab4Root = RankingPage;
   }
 
   profile() {
+    console.log("this.tab5Root ProfilePage");
     this.user_id = this.LoginProvider.isLogin();
     if (!this.user_id) {
-      this.navCtrl.setRoot(LoginPage);
+      this.tab5Root = LoginPage;
     } else {
-      this.tab2Root = ProfilePage;
+      this.tab5Root = ProfilePage;
     }
   }
 }

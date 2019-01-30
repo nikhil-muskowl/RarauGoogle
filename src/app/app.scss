@@ -395,7 +395,10 @@ ion-header ion-title .toolbar-title {
     font-size: 6vw;
 }
 
-.toolbar-title-md {
+.toolbar-title-md{
+    padding: 0 0 !important;
+}
+.toolbar-ios ion-title{
     padding: 0 0 !important;
 }
 
