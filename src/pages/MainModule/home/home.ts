@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SearchResultPage } from '../../SearchModule/search-result/search-result';
 import { StoryListPage } from '../../story/story-list/story-list';
 import { LocationTrackerProvider } from '../../../providers/location-tracker/location-tracker';
-import { BaiduProvider } from '../../../providers/baidu/baidu';
 import { LoadingProvider } from '../../../providers/loading/loading';
 import { AlertProvider } from '../../../providers/alert/alert';
 import { StoryServiceProvider } from '../../../providers/story-service/story-service';
@@ -91,7 +90,6 @@ export class HomePage {
     private modal: ModalController,
     public alertProvider: AlertProvider,
     public locationTrackerProvider: LocationTrackerProvider,
-    public baiduProvider: BaiduProvider,
     public formBuilder: FormBuilder,
     public locationTracker: LocationTrackerProvider,
     public loadingProvider: LoadingProvider,
@@ -106,6 +104,7 @@ export class HomePage {
     this.showStories = false;
   }
 
+  //on load initialize
   ngOnInit() {
     // Let's navigate from TabsPage to Page1
     this.locationTracker.setLocation();
@@ -128,6 +127,7 @@ export class HomePage {
     this.setMap();
   }
 
+  //set map
   setMap() {
 
     this.latitude = parseFloat(this.locationTracker.getLatitude());
@@ -145,6 +145,7 @@ export class HomePage {
     }
   }
 
+  //get current location and refresh map
   public getCurrenLocation() {
     this.locationTracker.setLocation();
 
@@ -169,10 +170,12 @@ export class HomePage {
     this.setMap();
   }
 
+  //to load youtube
   handleIFrameLoadEvent(): void {
     // this.loading.dismiss();
   }
 
+  //setting text according to language
   setText() {
     this.translate.setDefaultLang(this.languageProvider.getLanguage());
     this.translate.use(this.languageProvider.getLanguage());
@@ -191,6 +194,7 @@ export class HomePage {
     });
   }
 
+  //get category from server
   setCategory() {
 
     this.loadingProvider.present();
@@ -209,12 +213,14 @@ export class HomePage {
     );
   }
 
+  //goto user profile page
   gotoUsers(_id) {
     if (_id) {
       this.navCtrl.push(OthersProfilePage, { id: _id, user_id: this.user_id });
     }
   }
 
+  //open search modal
   openModal() {
 
     const myModalOptions: ModalOptions = {
@@ -264,6 +270,7 @@ export class HomePage {
     });
   }
 
+  //get advert from server
   getAdvertisement() {
     this.language_id = this.languageProvider.getLanguageId();
     let param;
@@ -289,6 +296,7 @@ export class HomePage {
       );
   }
 
+  //on slide change
   slideChanged() {
     let currentIndex = this.slides.getActiveIndex();
     if (currentIndex == this.Advdata.length) {
@@ -296,12 +304,14 @@ export class HomePage {
     }
   }
 
+  //load map
   loadMaps() {
     if (!!google) {
       this.getMarkers();
     }
   }
 
+  //get current location markers
   getMarkers() {
 
     this.regionals = [];
@@ -421,14 +431,17 @@ export class HomePage {
     );
   }
 
+  //button click next slide
   homeSlidesNext() {
     this.homeSlides.slideNext();
   }
 
+  //button click previous slide
   homeSlidesPrev() {
     this.homeSlides.slidePrev();
   }
 
+  //create mannual control on map for Current location (GPS button)
   CenterControl(centerControlDiv) {
     var controlUI = document.createElement('div');
 
@@ -449,6 +462,7 @@ export class HomePage {
     });
   }
 
+  //initialze google map
   initMap() {
     this.zone.run(() => {
 
@@ -548,20 +562,24 @@ export class HomePage {
     });
   }
 
+  //reset story on page
   public resetStories() {
     this.showStories = false;
     this.stories = [];
   }
 
+  //close list
   closeList() {
     this.showStories = false;
     console.log("Click on close icon");
   }
 
+  //goto Event list 
   openEvents() {
     this.navCtrl.push(EventListPage);
   }
 
+  //show top story window 
   public showWindow(markerData: any): void {
 
     this.user_id = this.LoginProvider.isLogin();
@@ -597,6 +615,7 @@ export class HomePage {
     }
   }
 
+  //goto top story list page
   goToList() {
     if (this.network.checkStatus() == true) {
       this.showStories = false;

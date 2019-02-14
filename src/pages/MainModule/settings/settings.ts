@@ -7,7 +7,6 @@ import { AlertProvider } from '../../../providers/alert/alert';
 import { LoginPage } from '../../AccountModule/login/login';
 import { LoginProvider } from '../../../providers/login/login';
 import { ProfilePage } from "../profile/profile";
-import { BaiduProvider } from "../../../providers/baidu/baidu";
 import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { AlertModalPage } from '../../AccountModule/alert-modal/alert-modal';
 import { TutorialPage } from '../tutorial/tutorial';
@@ -47,7 +46,6 @@ export class SettingsPage {
     public alertProvider: AlertProvider,
     public loadingProvider: LoadingProvider,
     public translate: TranslateService,
-    public baiduProvider: BaiduProvider,
     public languageProvider: LanguageProvider,
     private modal: ModalController,
     public http: HttpClient,
@@ -70,6 +68,7 @@ export class SettingsPage {
     }
   }
 
+  //setting text according to language
   setText() {
     this.translate.setDefaultLang(this.languageProvider.getLanguage());
     this.translate.use(this.languageProvider.getLanguage());
@@ -110,10 +109,12 @@ export class SettingsPage {
 
   }
 
+  //open tutorial page
   tutorial() {
     this.navCtrl.setRoot(TutorialPage);
   }
 
+  //get language
   public getLanguages() {
     this.loadingProvider.present();
     this.languageProvider.getLanguages().subscribe(response => {
@@ -127,6 +128,7 @@ export class SettingsPage {
     this.loadingProvider.dismiss();
   }
 
+  //on page change
   onChange(data: any) {
     //language
     console.log('selected language : ' + JSON.stringify(data));
@@ -134,10 +136,12 @@ export class SettingsPage {
     this.setText();
   }
 
+  //logout user
   logout() {
     this.openModal();
   }
 
+  //open modal for logout
   openModal() {
     const myModalOptions: ModalOptions = {
       enableBackdropDismiss: false
@@ -171,6 +175,7 @@ export class SettingsPage {
     });
   }
 
+  //goto previous p\age
   goBack() {
     this.navCtrl.setRoot(ProfilePage);
   }

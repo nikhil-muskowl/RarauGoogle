@@ -9,7 +9,6 @@ import { LoadingProvider } from '../../../providers/loading/loading';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageProvider } from '../../../providers/language/language';
 import { EventProvider } from '../../../providers/event/event';
-import { BaiduProvider } from "../../../providers/baidu/baidu";
 import { LocationTrackerProvider } from '../../../providers/location-tracker/location-tracker';
 
 @IonicPage()
@@ -66,10 +65,10 @@ export class CreateEventPage {
     public translate: TranslateService,
     public platform: Platform,
     public locationTrackerProvider: LocationTrackerProvider,
-    public baiduProvider: BaiduProvider,
     public languageProvider: LanguageProvider, ) {
   }
 
+  //on view or page change (initialize)
   ngOnInit() {
     this.createForm();
 
@@ -78,7 +77,6 @@ export class CreateEventPage {
     });
 
     this.user_id = this.loginProvider.isLogin();
-    this.city_id = this.baiduProvider.getCity();
     this.todayDate = new Date().toISOString();
     this.todayTime = new Date().toISOString();
     // this.todayTimeLocal = this.todayTime.getTimezoneOffset();
@@ -88,7 +86,6 @@ export class CreateEventPage {
     console.log('todayTimeLocal : ' + this.todayTimeLocal);
 
     this.setText();
-    this.loadCity();
 
     this.locationTrackerProvider.setLocation();
     //uncommnet below for HK testing 
@@ -96,6 +93,7 @@ export class CreateEventPage {
     this.longitude = this.locationTrackerProvider.getLongitude();
   }
 
+  //create forma nd validations
   createForm() {
     this.eventForm = this.formBuilder.group({
       name: ['', Validators.compose([Validators.maxLength(32), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
@@ -107,11 +105,7 @@ export class CreateEventPage {
     });
   }
 
-  onChangeCity(data: any) {
-    console.log('selected city : ' + JSON.stringify(data));
-    this.baiduProvider.setCity(data);
-  }
-
+  //setting text according to language
   setText() {
     this.translate.setDefaultLang(this.languageProvider.getLanguage());
     this.translate.use(this.languageProvider.getLanguage());
@@ -163,25 +157,12 @@ export class CreateEventPage {
     });
   }
 
+  //Goto Previous page
   goBack() {
     this.navCtrl.pop();
   }
 
-  loadCity() {
-    this.cities = [];
-
-    this.baiduProvider.getCities().subscribe(response => {
-      this.cities = response;
-      for (let i = 0; i < this.cities.length; i++) {
-        if (this.cities[i].area_id == this.city_id) {
-          this.city = this.cities[i].name;
-        }
-      }
-    }, err => {
-      console.error(err);
-    });
-  }
-
+  //Save the event data
   save() {
     this.submitAttempt = true;
     if (this.eventForm.valid) {
@@ -190,27 +171,7 @@ export class CreateEventPage {
     }
   }
 
-  public getLocation() {
-
-    this.fileterData = {
-      query: this.searchLoc,
-      location: this.city_id
-      // location: `${this.latitude},${this.longitude}`
-    };
-
-    this.baiduProvider.location(this.fileterData).subscribe(
-      response => {
-        console.log(response);
-        this.searchData = response;
-        this.locations = this.searchData.result;
-
-        console.log('location : ' + JSON.stringify(this.locations));
-      },
-      err => { console.error(err); }
-    );
-    console.log(this.locations);
-  }
-
+  //when location item is selected
   public locItemSelected(location: any) {
     console.log(location);
     if (location) {
@@ -224,24 +185,12 @@ export class CreateEventPage {
     this.locations = [];
   }
 
-  public onLocInput(ev: any) {
-    console.log('target value : ' + JSON.stringify(ev.target.value));
-    if (!this.isEmpty(ev.target.value)) {
-      // if (ev.target.value != "" || ev.target.value != undefined) {
-      console.log("inside if target");
-      this.searchLoc = ev.target.value;
-      this.locations = [];
-      this.getLocation();
-    }
-    else {
-      this.locations = [];
-    }
-  }
-
+  //On clear search input autocomplete
   public onLocCancel(ev: any) {
     this.searchLoc = '';
   }
 
+  //check string is empty or not
   isEmpty(str) {
     return (!str || 0 === str.length);
   }

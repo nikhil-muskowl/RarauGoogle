@@ -3,7 +3,6 @@ import { Content } from 'ionic-angular';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { LoadingProvider } from '../../../providers/loading/loading';
 import { AlertProvider } from '../../../providers/alert/alert';
-import { BaiduProvider } from '../../../providers/baidu/baidu';
 import { LocationTrackerProvider } from '../../../providers/location-tracker/location-tracker';
 import { OthersProfilePage } from '../../AccountModule/others-profile/others-profile';
 import { SingleStoryPage } from '../../story/single-story/single-story';
@@ -59,7 +58,6 @@ export class RankingPage {
     public platform: Platform,
     public network: NetworkProvider,
     public loadingProvider: LoadingProvider,
-    public baiduProvider: BaiduProvider,
     public storiesProvider: StoryServiceProvider,
     public alertProvider: AlertProvider,
     public locationTrackerProvider: LocationTrackerProvider,
@@ -73,6 +71,7 @@ export class RankingPage {
     });
   }
 
+  //when view will be enter in page
   ionViewWillEnter() {
     this.content.resize();
     this.setText();
@@ -84,6 +83,7 @@ export class RankingPage {
     console.log(this.story_type_id);
   }
 
+  //open page for country search
   openSearch() {
     this.isSearch = !this.isSearch;
     if (this.isSearch) {
@@ -94,6 +94,7 @@ export class RankingPage {
     console.log("this.isSearch : " + this.isSearch);
   }
 
+  //setting text according to language
   setText() {
     this.translate.setDefaultLang(this.languageProvider.getLanguage());
     this.translate.use(this.languageProvider.getLanguage());
@@ -121,6 +122,7 @@ export class RankingPage {
     });
   }
 
+  //get all countries list
   getCountry() {
 
     this.storiesProvider.apiGetAllLocations(this.country).subscribe(
@@ -134,10 +136,12 @@ export class RankingPage {
     );
   }
 
+  //on search box cancel
   public onCancel(ev: any) {
     this.search = '';
   }
 
+  //on ranking category type change
   public typeChanged(event) {
     this.rankItems = [];
     this.start = 0;
@@ -145,6 +149,7 @@ export class RankingPage {
     this.getList();
   }
 
+  //get list of stories of selected category
   public getList() {
     this.language_id = this.languageProvider.getLanguageId();
     if (this.network.checkStatus() == true) {
@@ -175,6 +180,7 @@ export class RankingPage {
     }
   }
 
+  //bind list of load more data
   bindUpdata() {
 
     for (let i = 0; i < this.items.length; i++) {
@@ -209,6 +215,7 @@ export class RankingPage {
     }
   }
 
+  //on scroll load more data
   onScrollDown(infiniteScroll) {
 
     console.log(this.start);
@@ -220,11 +227,13 @@ export class RankingPage {
     infiniteScroll.complete();
   }
 
+  //goto Profile page
   public goToProfile(user_id) {
 
     this.navCtrl.push(OthersProfilePage, { id: user_id });
   }
 
+  //get all story category types
   public getTypes() {
     if (this.network.checkStatus() == true) {
       this.loadingProvider.present();
@@ -249,14 +258,17 @@ export class RankingPage {
     }
   }
 
+  //goto story detail page
   public itemTapped(data: any) {
     this.navCtrl.push(SingleStoryPage, { story_id: data.id });
   }
 
+  //on country location cancel
   public onLocCancel(ev: any) {
     this.country = '';
   }
 
+  //on country input autocomplete
   public onLocInput(ev: any) {
     if (ev.target.value != "" || ev.target.value != undefined) {
       this.country = ev.target.value;
@@ -265,6 +277,7 @@ export class RankingPage {
     }
   }
 
+  //on country select
   public locItemSelected(location: any) {
     console.log(location);
     if (location) {

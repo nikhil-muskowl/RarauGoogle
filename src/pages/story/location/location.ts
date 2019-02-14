@@ -1,6 +1,5 @@
 import { Component, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
-import { BaiduProvider } from '../../../providers/baidu/baidu';
 import { LocationTrackerProvider } from '../../../providers/location-tracker/location-tracker';
 import { AlertProvider } from '../../../providers/alert/alert';
 import { DomSanitizer } from "@angular/platform-browser";
@@ -57,7 +56,6 @@ export class LocationPage {
     public alertProvider: AlertProvider,
     public platform: Platform,
     public locationTrackerProvider: LocationTrackerProvider,
-    public baiduProvider: BaiduProvider,
     public sanitizer: DomSanitizer,
     public translate: TranslateService,
     public languageProvider: LanguageProvider, ) {

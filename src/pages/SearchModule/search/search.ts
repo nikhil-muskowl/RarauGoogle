@@ -5,7 +5,6 @@ import { LoadingProvider } from '../../../providers/loading/loading';
 import { AlertProvider } from '../../../providers/alert/alert';
 import { StoryServiceProvider } from '../../../providers/story-service/story-service';
 import { LoginProvider } from '../../../providers/login/login';
-import { BaiduProvider } from '../../../providers/baidu/baidu';
 import { SearchResProvider } from '../../../providers/search-res/search-res';
 import { LocationTrackerProvider } from '../../../providers/location-tracker/location-tracker';
 import { TranslateService } from '@ngx-translate/core';
@@ -68,7 +67,6 @@ export class SearchPage {
     private view: ViewController,
     public formBuilder: FormBuilder,
     public locationTrackerProvider: LocationTrackerProvider,
-    public baiduProvider: BaiduProvider,
     public searchProvider: SearchResProvider,
     public translate: TranslateService,
     public locationTracker: LocationTrackerProvider,

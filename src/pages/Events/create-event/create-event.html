@@ -39,16 +39,6 @@
       </div>
 
       <ion-item>
-        <ion-label floating>{{event_city}}</ion-label>
-        <ion-select [(ngModel)]="city" formControlName="fcity" interface="popover">
-          <ion-option *ngFor="let city of cities" value="{{city.name}}" (ionSelect)="onChangeCity(city.area_id)">{{city.name}}</ion-option>
-        </ion-select>
-      </ion-item>
-      <div text-center>
-        <p class="invalid-message" *ngIf="!eventForm.controls.fcity.valid && (eventForm.controls.fcity.dirty || submitAttempt)">{{error_city}}</p>
-      </div>
-
-      <ion-item>
         <ion-searchbar placeholder="{{story_srch_loc}}" formControlName="loc" [(ngModel)]="searchLoc"
           [showCancelButton]="shouldShowCancel" (ionInput)="onLocInput($event)" (ionCancel)="onLocCancel($event)">
         </ion-searchbar>

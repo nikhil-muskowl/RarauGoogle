@@ -154,9 +154,9 @@ export class RegistrationPage {
       this.uploadIcon = 'assets/imgs/login/upload-icon.png';
       this.uploadText = this.upload_img;
     }
-
   }
 
+  //setting text according to language
   setText() {
     this.translate.setDefaultLang(this.languageProvider.getLanguage());
     this.translate.use(this.languageProvider.getLanguage());
@@ -239,6 +239,7 @@ export class RegistrationPage {
 
   }
 
+  //check registration
   save() {
 
     this.submitAttempt = true;
@@ -341,10 +342,12 @@ export class RegistrationPage {
     }
   }
 
+  //when view will be enter in page
   ionViewWillEnter() {
     this.tabService.hide();
   }
 
+  //create form and validation
   createForm() {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.compose([Validators.maxLength(32), Validators.pattern('[a-zA-Z0-9_.-]*'), Validators.required])],
@@ -356,6 +359,7 @@ export class RegistrationPage {
     });
   }
 
+  //on gender change Male
   public maleimage = 'assets/icon/male_white.png';
   public male_color;
   manClick() {
@@ -374,6 +378,7 @@ export class RegistrationPage {
     console.log('Gender Id : ' + this.gender_id);
   }
 
+  //on gender change Female
   public femaleimage = 'assets/icon/female_white.png';
   public female_color;
   womanClick() {
@@ -392,14 +397,17 @@ export class RegistrationPage {
     console.log('Gender Id : ' + this.gender_id);
   }
 
+  //on date change
   ondateChange() {
     console.info("Selected Date:", this.date);
   }
 
+  //goto Wechat page
   goToWechat() {
     this.navCtrl.push(LoginWechatPage);
   }
 
+  //upload profile image
   updateProfile() {
     this.navCtrl.push(UpdateProfilePage, {
       image: this.image, imagePath: this.imagePath, data: this.registerForm.value,
@@ -407,19 +415,23 @@ export class RegistrationPage {
     });
   }
 
+  //goto previous page
   goBack() {
     this.tabService.show();
     this.navCtrl.setRoot(LoginPage);
   }
 
+  //goto terms page
   gototerms() {
     this.navCtrl.push(TermsPage);
   }
 
+  //goto birthday page
   gotobirthday() {
     this.navCtrl.push(BirthdayPage);
   }
 
+  //goto profile page
   gotoprofile() {
     this.navCtrl.push(WhyProfilePage);
   }

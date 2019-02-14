@@ -83,7 +83,6 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
 import { File } from '@ionic-native/file';
 import { IonTagsInputModule } from "ionic-tags-input";
 import { LocationTrackerProvider } from '../providers/location-tracker/location-tracker';
-import { BaiduProvider } from '../providers/baidu/baidu';
 import { IonicSwipeAllModule } from 'ionic-swipe-all';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -288,7 +287,6 @@ export function createTranslateLoader(http: HttpClient) {
     PeopleProvider,
     NativeGeocoder,
     LocationTrackerProvider,
-    BaiduProvider,
     FollowProvider,
     ImageService,
     ImagePicker,

@@ -13,12 +13,13 @@ export class CameraUtilsProvider {
   constructor(public http: HttpClient,
     public file: File,
     public platform: Platform) {
-    console.log('Hello CameraUtilsProvider Provider');
 
+    console.log('Hello CameraUtilsProvider Provider');
     this.createDirective();
 
   }
 
+  //create directory to save story images
   createDirective() {
     if (this.platform.is('android')) {
 
@@ -38,6 +39,7 @@ export class CameraUtilsProvider {
     }
   }
 
+  //save to gallery
   public saveToGallery(src) {
 
     // return new Promise((resolve, reject) => {
@@ -58,6 +60,7 @@ export class CameraUtilsProvider {
     // });
   }
 
+  //convert base 64 to image
   public b64toBlob(b64Data, contentType) {
     contentType = contentType || '';
     var sliceSize = 512;
@@ -81,6 +84,7 @@ export class CameraUtilsProvider {
     return blob;
   }
 
+  //create file name from timestamp
   private createFileName() {
     var d = new Date(),
       n = d.getTime(),

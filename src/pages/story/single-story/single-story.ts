@@ -80,6 +80,7 @@ export class SingleStoryPage {
     }
   }
 
+  //setting text according to language
   setText() {
     this.translate.setDefaultLang(this.languageProvider.getLanguage());
     this.translate.use(this.languageProvider.getLanguage());
@@ -113,14 +114,17 @@ export class SingleStoryPage {
     });
   }
 
+  //check user logged in or not
   isLogin() {
     this.user_id = this.LoginProvider.isLogin();
   }
 
+  //goto previous page
   goBack() {
     this.navCtrl.pop();
   }
 
+  //get story detail
   getStories() {
     this.loadingProvider.present();
     this.language_id = this.languageProvider.getLanguageId();
@@ -161,6 +165,7 @@ export class SingleStoryPage {
     );
   }
 
+  //goto report story
   reportStory() {
     console.log('Report user');
     console.log('Swipe comment', event);
@@ -179,10 +184,12 @@ export class SingleStoryPage {
     }
   }
 
+  //goto recipt page
   showReceipt() {
     this.navCtrl.push(ReceiptShowPage, { receipt: this.receipt });
   }
 
+  //goto story page
   goToComments(event: any): any {
     console.log('Swipe comment', event);
     this.isLogin();
@@ -206,6 +213,7 @@ export class SingleStoryPage {
     console.log('Swipe Right', event);
   }
 
+  //swipe up to like
   swipeUp(event: any): any {
 
     console.log('Swipe Up', event);
@@ -230,6 +238,7 @@ export class SingleStoryPage {
     }
   }
 
+  //swipe up to dislike
   swipeDown(event: any): any {
     console.log('Swipe Down', event);
 
@@ -257,6 +266,7 @@ export class SingleStoryPage {
     }
   }
 
+  //rank story
   public rankStory(rank: number) {
     if (this.network.checkStatus() == true) {
       var likes = 0;
@@ -315,6 +325,7 @@ export class SingleStoryPage {
 
   }
 
+  //save story
   saveStory() {
     this.isLogin();
 
@@ -362,6 +373,7 @@ export class SingleStoryPage {
     }
   }
 
+  //login alert
   loginAlert() {
     this.alertProvider.title = this.forbidden;
     this.alertProvider.message = this.login_to_continue;
