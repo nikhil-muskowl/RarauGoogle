@@ -13,7 +13,6 @@ export class LoadingProvider {
   constructor(public http: HttpClient, public loadingCtrl: LoadingController) {
   }
 
-
   //to check loading is present
   present() {
     if (!this.loading) {

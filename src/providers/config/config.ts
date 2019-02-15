@@ -13,6 +13,7 @@ export class ConfigProvider {
 
   }
 
+  //set tutorial seen value in storage
   public setisSeen(data) {
     console.log('setData when isSeen : ' + JSON.stringify(data));
     try {
@@ -22,6 +23,7 @@ export class ConfigProvider {
     }
   }
 
+  //unset tutorial seen value in storage
   public unSetData() {
     try {
       window.localStorage.removeItem('isSeen');
@@ -29,6 +31,7 @@ export class ConfigProvider {
     }
   }
 
+  //get tutorial seen value from storage
   public isSeen() {
     try {
       return window.localStorage.getItem('isSeen');
