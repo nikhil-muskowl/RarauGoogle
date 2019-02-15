@@ -20,6 +20,7 @@ export class LanguageProvider {
     this.language_id = this.getLanguageId();
   }
 
+  //get language from serve
   public getLanguages() {
     this.formData = new FormData();
     this.URL = ConfigProvider.BASE_URL + 'settings/api/languages_api';

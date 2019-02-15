@@ -87,7 +87,7 @@ export class SearchPage {
     else {
       this.network.displayNetworkUpdate();
     }
-    
+
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
@@ -98,6 +98,7 @@ export class SearchPage {
     console.log('this.locationTracker.getLongitude : ' + this.locationTracker.getLongitude());
   }
 
+  //setting text according to language
   setText() {
     this.translate.setDefaultLang(this.languageProvider.getLanguage());
     this.translate.use(this.languageProvider.getLanguage());
@@ -113,6 +114,7 @@ export class SearchPage {
     });
   }
 
+  //get category from server
   getCategory() {
 
     this.loadingProvider.present();
@@ -131,12 +133,14 @@ export class SearchPage {
     );
   }
 
+  //create form and validation
   createForm() {
     this.searchForm = this.formBuilder.group({
       searchUser: ['', Validators.required],
     });
   }
 
+  //close modal and redirect to calling page
   closeModal() {
     const data = {
       // search: this.searchUser
@@ -144,6 +148,7 @@ export class SearchPage {
     this.view.dismiss();
   }
 
+  //global search for all methods
   globalSearch() {
     console.log('searchUsercat : ' + this.searchCat);
     console.log('searchUse : ' + this.searchUse);
@@ -168,6 +173,7 @@ export class SearchPage {
     }
   }
 
+  //search story category
   searchUsercat() {
     console.log('searchUsercat : ' + this.searchCat);
 
@@ -185,6 +191,7 @@ export class SearchPage {
     }
   }
 
+  //search user story
   searchUserStory() {
     console.log('searchUse : ' + this.searchUse);
 
@@ -203,6 +210,7 @@ export class SearchPage {
     }
   }
 
+  //search user
   searchUsers(event) {
     event.stopPropagation();
     this.searchUser = this.searchForm.value.searchUser;
@@ -221,6 +229,7 @@ export class SearchPage {
     }
   }
 
+  //get user from server
   public getUsers() {
 
     this.filterData = {
@@ -240,6 +249,7 @@ export class SearchPage {
     console.log(this.locations);
   }
 
+  //search item select
   public searchItemSelected(searches: any) {
     console.log(searches);
     if (searches) {
@@ -249,21 +259,25 @@ export class SearchPage {
     this.searchData = [];
   }
 
+  //get user from server no input search
   public onUserInput(ev: any) {
     this.searchUse = ev.target.value;
     this.searchData = [];
     this.getUsers();
   }
 
+  //on user search cancel
   public onUserCancel(ev: any) {
     this.searchUse = '';
   }
 
+  //search location update
   updateSearchResults() {
     if (this.autocomplete.input == '') {
       this.autocompleteItems = [];
       return;
     }
+
     this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
       (predictions, status) => {
         this.autocompleteItems = [];
@@ -275,6 +289,7 @@ export class SearchPage {
       });
   }
 
+  //on select location result item from search
   selectSearchResult(item) {
     console.log("You clicked on : " + JSON.stringify(item));
     // console.log('Search Lat', place.geometry.location.lat());
@@ -304,6 +319,7 @@ export class SearchPage {
     })
   }
 
+  //convert into geo code and name
   geoCode(address: any) {
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'address': address }, (results, status) => {
@@ -313,6 +329,7 @@ export class SearchPage {
     });
   }
 
+  //on location cancel
   public onLocCancel(ev: any) {
     this.searchLoc = '';
   }
