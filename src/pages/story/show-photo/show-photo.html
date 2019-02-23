@@ -24,8 +24,8 @@
 
 <ion-content style="background-color: #FAFAFA;">
 
-  <div id="imageFilter3">
-    <img [src]="src" class="full-image" [class]="filter.class" (press)="press($event)" (touchend)="end()" id="imageFilter"
+  <div id="imageFilter3" class="full-image">
+    <img [src]="src" [class]="filter.class" (press)="press($event)" (touchend)="end()" id="imageFilter"
       #imageFilter>
   </div>
 
@@ -55,7 +55,7 @@
   </ion-slides> -->
 
 
-  <ion-item *ngIf="actualView == 'brightness'">
+  <!-- <ion-item *ngIf="actualView == 'brightness'">
     <ion-label>{{brightness}}</ion-label>
     <ion-range min="-100" max="100" color="dark" brightness type="brightness" [(ngModel)]="brightness" imageId="imageFilter">
     </ion-range>
@@ -79,7 +79,7 @@
     <ion-label>{{fade}}</ion-label>
     <ion-range min="-100" max="100" color="dark" brightness type="opacity" [(ngModel)]="fade" imageId="imageFilter">
     </ion-range>
-  </ion-item>
+  </ion-item> -->
 
 </ion-content>
 
@@ -97,7 +97,7 @@
 </ion-footer> -->
 
 
-<ion-footer *ngIf="isCustomFilter()" no-border>
+<!-- <ion-footer *ngIf="isCustomFilter()" no-border>
 
   <ion-segment class="toolbar-filter" mode="md">
     <ion-segment-button value="filter" class="segment-text" (click)="cancel()">
@@ -107,4 +107,4 @@
       {{done_txt}}
     </ion-segment-button>
   </ion-segment>
-</ion-footer>
+</ion-footer> -->

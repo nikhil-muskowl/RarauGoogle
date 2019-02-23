@@ -37,6 +37,7 @@ export class ShowPhotoPage {
     // {name: "shadows", icon: "ios-star-half-outline"},
   ]
 
+  private story_type_id;
   src;
   user: any;
   story: boolean = false;
@@ -84,6 +85,7 @@ export class ShowPhotoPage {
     this.setText();
     this.tabService.hide();
 
+    this.story_type_id = this.navParams.get('story_type_id');
     this.src = this.navParams.get('photo');
     let story = this.navParams.get('story');
 
@@ -192,7 +194,8 @@ export class ShowPhotoPage {
     c2.width = img.naturalWidth;
     c2.height = img.naturalHeight;
 
-    console.log(c);
+    var cat_id = this.story_type_id;
+    console.log('var cat_id : ' + cat_id);
 
     var self = this;
     (<any>window).rasterizeHTML.drawHTML(c.innerHTML, c2).then(function success(renderResult) {
@@ -208,7 +211,7 @@ export class ShowPhotoPage {
         self.navCtrl.popToRoot();
 
       } else {
-        self.navCtrl.push(LocationPage, { image: image });
+        self.navCtrl.push(LocationPage, { image: image, story_type_id: cat_id });
       }
 
     }, function error(e) {

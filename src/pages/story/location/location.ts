@@ -34,6 +34,7 @@ export class LocationPage {
 
   public locName;
   public image;
+  public story_type_id;
   public error;
   public story_srch_loc;
   public location_txt;
@@ -70,6 +71,8 @@ export class LocationPage {
     this.myLocBtn = 'myLocBtn';
 
     this.setText();
+
+    this.story_type_id = this.navParams.get('story_type_id');
     this.image = this.navParams.get('image');
     console.log('image on location page : ' + this.image);
 
@@ -137,7 +140,10 @@ export class LocationPage {
     if (this.isMycurrLoc == 1) {
       if (this.story_title != '') {
         this.locName = this.story_title;
-        this.navCtrl.push(StoryCategoryPage, { image: this.image, locName: this.locName, latitude: this.selLatitude, longitude: this.selLongitude });
+        this.navCtrl.push(StoryCategoryPage, {
+          image: this.image, locName: this.locName, story_type_id: this.story_type_id,
+          latitude: this.selLatitude, longitude: this.selLongitude
+        });
       } else {
         this.alertProvider.title = this.error;
         this.alertProvider.message = this.error_story_title;
@@ -154,13 +160,16 @@ export class LocationPage {
         console.log('next category');
         console.log("this.locName : " + this.locName);
 
-        this.navCtrl.push(StoryCategoryPage, { image: this.image, locName: this.locName, latitude: this.selLatitude, longitude: this.selLongitude });
+        this.navCtrl.push(StoryCategoryPage, {
+          image: this.image, locName: this.locName, story_type_id: this.story_type_id,
+          latitude: this.selLatitude, longitude: this.selLongitude
+        });
       }
     }
   }
 
   goBack() {
-    this.navCtrl.push(ShowPhotoPage, { photo: this.image });
+    this.navCtrl.push(ShowPhotoPage, { photo: this.image, story_type_id: this.story_type_id });
   }
 
   updateSearchResults() {

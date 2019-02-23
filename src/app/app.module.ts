@@ -117,6 +117,7 @@ import { FollowingComponent } from '../components/following/following';
 import { RankingComponent } from '../components/ranking/ranking';
 import { FollowersComponent } from '../components/followers/followers';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
+import { EventsCategoryPage } from '../pages/Events/events-category/events-category';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/language/', '.json');
@@ -175,6 +176,7 @@ export function createTranslateLoader(http: HttpClient) {
     EventModalPage,
     StoryModalPage,
     NotificationListPage,
+    EventsCategoryPage,
   ],
   imports: [
     HttpClientModule,
@@ -263,6 +265,7 @@ export function createTranslateLoader(http: HttpClient) {
     EventModalPage,
     StoryModalPage,
     NotificationListPage,
+    EventsCategoryPage,
   ],
   providers: [
     StatusBar,

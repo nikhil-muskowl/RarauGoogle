@@ -16,6 +16,8 @@ import { OthersProfilePage } from '../../AccountModule/others-profile/others-pro
 import { EventListPage } from '../../Events/event-list/event-list';
 import { NetworkProvider } from '../../../providers/network/network';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { GalleryPage } from '../../story/gallery/gallery';
+import { EventsCategoryPage } from '../../Events/events-category/events-category';
 
 declare var google: any;
 
@@ -270,6 +272,16 @@ export class HomePage {
     });
   }
 
+  //open story upload page
+  postStory() {
+    this.navCtrl.setRoot(GalleryPage);
+  }
+
+  //event page
+  gotoEvents(story_type_id) {
+    this.navCtrl.push(EventsCategoryPage, { story_type_id: story_type_id });
+  }
+
   //get advert from server
   getAdvertisement() {
     this.language_id = this.languageProvider.getLanguageId();
@@ -441,27 +453,6 @@ export class HomePage {
     this.homeSlides.slidePrev();
   }
 
-  //create mannual control on map for Current location (GPS button)
-  CenterControl(centerControlDiv) {
-    var controlUI = document.createElement('div');
-
-    // controlUI.className = 'background-rank';
-    controlUI.className = 'map-top';
-    controlUI.style.cursor = 'pointer';
-    // controlUI.style.backgroundImage = "url('icon/event.png')";
-    controlUI.style.height = '32px';
-    controlUI.style.width = '32px';
-    controlUI.style.top = '11px';
-    // controlUI.innerHTML = 'Center Map';
-    controlUI.style.left = '120px';
-
-    centerControlDiv.appendChild(controlUI);
-
-    centerControlDiv.addEventListener('click', function () {
-      this.getCurrenLocation();
-    });
-  }
-
   //initialze google map
   initMap() {
     this.zone.run(() => {
@@ -480,9 +471,6 @@ export class HomePage {
         scaleControl: true,
       });
 
-      // var centerControlDiv = document.createElement('div');
-      // var centerControl = this.CenterControl(centerControlDiv);
-
       var controlUI = document.createElement('div');
 
       // controlUI.className = 'background-rank';
@@ -496,11 +484,6 @@ export class HomePage {
       // controlUI.innerHTML = 'Center Map';
       controlUI.style.left = '120px';
 
-      // this.map.appendChild(controlUI);
-
-      // centerControlDiv.addEventListener('click', function () {
-      //   this.getCurrenLocation();
-      // });
       var object = this;
       controlUI.addEventListener('click', function () {
         object.getCurrenLocation();
@@ -519,10 +502,12 @@ export class HomePage {
         var image = {
           url: regional.marker_thumb,
           // This marker is 32 pixels wide by 32 pixels high.
-          size: new google.maps.Size(32, 32),
+          //change size on 23/02/2019 client requirement
+          // size: new google.maps.Size(32, 32),
+          size: new google.maps.Size(50, 50),
           // The origin for this image is (0, 0).
           // origin: new google.maps.Point(0, 0),
-          scaledSize: new google.maps.Size(32, 32),
+          scaledSize: new google.maps.Size(50, 50),
           // The anchor for this image is the base of the flagpole at (0, 32).
           // anchor: new google.maps.Point(0, 32)
         };
