@@ -86,9 +86,9 @@ export class MyApp {
         //Push notification setup
         this.pushSetup();
 
-        //custom splash
-        let splash = modalCtrl.create(SplashPage);
-        splash.present();
+        //custom splash Comment on 26-02-2019 on PNG splash
+        // let splash = modalCtrl.create(SplashPage);
+        // splash.present();
 
         // Commented these lines for desktop, uncomment for real device(Mobile)
         // console.log(this.screenOrientation.type); // logs the current orientation, example: 'landscape'
