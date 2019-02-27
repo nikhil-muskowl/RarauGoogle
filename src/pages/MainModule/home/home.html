@@ -104,15 +104,15 @@
   </div>
 
   <div style="height: 20%;">
-    <!-- <ion-slides *ngIf="Advdata" autoplay="3000" loop="true" speed="500" (ionSlideDidChange)="slideChanged()">
+    <ion-slides *ngIf="Advdata" autoplay="3000" loop="true" speed="500" (ionSlideDidChange)="slideChanged()">
       <ion-slide *ngFor="let slide of Advdata">
         <div>
           <img class="adv-img" src="http://rarau.hk/{{slide.image}}" height="100" width="100">
         </div>
       </ion-slide>
-    </ion-slides> -->
-    <iframe width="100%" [src]="trustedVideoUrl ? trustedVideoUrl : null"
-      (load)="trustedVideoUrl ? handleIFrameLoadEvent() : null" frameborder="0" allowfullscreen></iframe>
+    </ion-slides>
+    <!-- <iframe width="100%" [src]="trustedVideoUrl ? trustedVideoUrl : null"
+      (load)="trustedVideoUrl ? handleIFrameLoadEvent() : null" frameborder="0" allowfullscreen></iframe> -->
 
   </div>
 </ion-content>
