@@ -18,6 +18,7 @@ import { NetworkProvider } from '../../../providers/network/network';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { GalleryPage } from '../../story/gallery/gallery';
 import { EventsCategoryPage } from '../../Events/events-category/events-category';
+import { RankingPage } from '../ranking/ranking';
 
 declare var google: any;
 
@@ -280,6 +281,11 @@ export class HomePage {
   //event page
   gotoEvents(story_type_id) {
     this.navCtrl.push(EventsCategoryPage, { story_type_id: story_type_id });
+  }
+
+  //openRanks
+  gotoRanks(story_type_id) {
+    this.navCtrl.push(RankingPage);
   }
 
   //get advert from server
