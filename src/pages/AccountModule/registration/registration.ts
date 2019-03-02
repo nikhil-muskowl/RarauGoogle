@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginPage } from '../login/login';
@@ -416,8 +416,9 @@ export class RegistrationPage {
     this.navCtrl.push(LoginWechatPage);
   }
 
-  //upload profile image
-  updateProfile() {
+  //commented on 22/02.2019 on client requirement
+  //Goto Upload Profile Photo
+  uploadProfilePic() {
     this.navCtrl.push(UpdateProfilePage, {
       image: this.image, imagePath: this.imagePath, data: this.registerForm.value,
       date: this.date, gender: this.gender_id
